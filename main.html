@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/57/57581.png">
+    <title>Rotating Cube</title>
+  
+    <style>
+      
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .canvas {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-image: radial-gradient(ellipse, rgb(95, 22, 143) 0%, rgb(66, 14, 96) 40%, rgb(10, 0, 34) 100%);
+            perspective: 850px;
+        }
+
+        .cube {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            transform-origin: 50% 50% 150px;
+            transform-style: preserve-3d;
+            transition: all 0.5s ease-out;
+        }
+
+      
+
+        .cube .face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 180px;
+            color: transparent;
+            -webkit-text-stroke: 5px white;
+        }
+
+
+
+      
+        .cube .face:nth-child(1) {
+            transform: translateZ(300px);
+            background-color: rgba(238, 141, 12, 0.5);
+        }
+
+
+      
+        .cube .face:nth-child(2) {
+            transform-origin: center right;
+            transform: rotateY(90deg);
+            background-color: rgba(95, 158, 160, 0.5);
+        }
+
+
+      
+
+        .cube .face:nth-child(3) {
+            transform-origin: center center;
+            transform: rotateY(180deg);
+            background-color: rgba(225, 127, 80, 0.5);
+        }
+
+
+
+      
+        .cube .face:nth-child(4) {
+            transform-origin: center left;
+            transform: rotateY(-90deg);
+            background-color: rgba(0, 100, 0, 0.5);
+        }
+
+
+
+      
+
+        .cube .face:nth-child(5) {
+            transform-origin: top center;
+            transform: rotateX(90deg);
+            background-color: rgba(130, 0, 0, 0.5);
+        }
+
+
+
+      
+
+        .cube .face:nth-child(6) {
+            transform-origin: bottom center;
+            transform: rotateX(-90deg);
+            background-color: rgba(30, 143, 225, 0.5);
+        }
+
+
+      
+    </style>
+</head>
+
+
+
+  
+<body>
+    <div class="canvas">
+
+      
+        <div class="cube">
+
+
+          
+            <div class="face">1</div>
+          
+            <div class="face">2</div>
+          
+            <div class="face">3</div>
+          
+            <div class="face">4</div>
+          
+            <div class="face">5</div>
+          
+            <div class="face">6</div>
+          
+        </div>
+    </div>
+    <script>
+
+      
+        function rotateCube(e) 
+        
+        {
+            var cube = document.getElementsByClassName("cube");
+            var x, y;
+
+            if (e.type === "mousemove") 
+            
+            
+            {
+                x = e.clientX - window.innerWidth / 2;
+                y = e.clientY - window.innerWidth / 2;
+            }
+            
+            
+            else if (e.type === "touchmove") 
+            
+            
+            
+            {
+                x = e.touches[0].clientX - window.innerWidth / 2;
+                y = e.touches[0].clientY - window.innerWidth / 2;
+            }
+
+            var q = 0.15;
+
+            x = x * q * 1.25;
+            y = -y * q * 1.25;
+
+          
+            for (var i = 0; i < cube.length; i++) 
+            {
+                cube[i].style.transform = "rotateY(" + x + "deg) rotateX(" + y + "deg)";
+            }
+        }
+
+      
+        document.addEventListener("mousemove", rotateCube);
+      
+        document.addEventListener("touchmove", rotateCube);
+      
+    </script>
+  
+</body>
+
+</html>
